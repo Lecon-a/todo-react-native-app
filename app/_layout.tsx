@@ -1,23 +1,18 @@
-import { Tabs } from "expo-router";
+import { ThemeProvider } from '@/hooks/useTheme'
+import { Stack } from 'expo-router'
 
-const RootLayout = () => {
+const _layout = () => {
   return (
-    <Tabs>
-      <Tabs.Screen
-        name="index"
-        options={{
-          headerShown: true,
-          title: "Home",
+    <ThemeProvider>
+      <Stack
+        screenOptions={{
+          headerShown: false,
         }}
-      />
-      <Tabs.Screen
-        name="settings"
-        options={{
-          headerShown: true,
-          headerTitle: "Settings",
-        }} />
-    </Tabs>
+      >
+        <Stack.Screen name="(tabs)"/>
+      </Stack>
+    </ThemeProvider>
   )
 }
 
-export default RootLayout;
+export default _layout
