@@ -1,11 +1,11 @@
-import { View, TextInput, TouchableOpacity, Alert } from 'react-native'
-import useTheme from '@/hooks/useTheme'
-import { createHomeStyles } from '@/assets/styles/homo.styles'
+import { createHomeStyles } from '@/assets/styles/home.styles'
 import { api } from '@/convex/_generated/api'
-import { useMutation } from 'convex/react'
-import { useState } from 'react'
-import { LinearGradient } from 'expo-linear-gradient'
+import useTheme from '@/hooks/useTheme'
 import { Ionicons } from '@expo/vector-icons'
+import { useMutation } from 'convex/react'
+import { LinearGradient } from 'expo-linear-gradient'
+import { useState } from 'react'
+import { Alert, TextInput, TouchableOpacity, View } from 'react-native'
 
 const TodoInput = () => {
 

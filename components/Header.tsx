@@ -1,11 +1,10 @@
-import { View, Text } from 'react-native'
-import { useMutation, useQuery } from "convex/react";
+import { createHomeStyles } from '@/assets/styles/home.styles';
 import { api } from '@/convex/_generated/api';
-import useTheme from '@/hooks/useTheme';
-import { LinearGradient } from 'expo-linear-gradient';
-import { createHomeStyles } from '@/assets/styles/homo.styles';
-import { useEffect } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import { useQuery } from "convex/react";
+import { LinearGradient } from 'expo-linear-gradient';
+import { Text, View } from 'react-native';
+import useTheme from '@/hooks/useTheme';
 
 const Header = () => {
 
