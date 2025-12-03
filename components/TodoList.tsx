@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity } from 'react-native'
 import { Doc, Id } from '@/convex/_generated/dataModel';
 import useTheme from '@/hooks/useTheme';
 import { createHomeStyles } from '@/assets/styles/home.styles'; 
@@ -6,28 +6,35 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { api } from '@/convex/_generated/api';
 import { useMutation } from 'convex/react';
+import { useState } from 'react';
+import EditTodo from './EditTodo';
+import TodoListItem from './TodoListItem';
 
 
 type Todo = Doc<"todos">;
 
 const TodoList = ({ item }: { item: Todo }) => {
 
-  const { colors } = useTheme();
-  const homeStyles = createHomeStyles(colors);
+    const { colors } = useTheme();
+    const homeStyles = createHomeStyles(colors);
+    // state management
+    const [editingTodoId, setEditingTodoId] = useState<Id<"todos">|null>(null);
+    const [editingText, setEditingText] = useState<string>("");
+    const isEditing = editingTodoId === item._id;
 
-  // endpoint
-  const toggleTodo = useMutation(api.todos.toggleTodo);
+    // endpoint
+    const toggleTodo = useMutation(api.todos.toggleTodo);
 
-  const handleToggleTodo = async(id:Id<"todos">) => {
-    try {
-      // Placeholder for actual update logic
-      await toggleTodo({ id });
-    } catch (error) {
-      console.error('Error toggling isCompleted status:', error); 
-    }
-  };
+    const handleToggleTodo = async(id:Id<"todos">) => {
+      try {
+        // Placeholder for actual update logic
+        await toggleTodo({ id });
+      } catch (error) {
+        console.error('Error toggling isCompleted status:', error); 
+      }
+    };
 
-  return (
+    return (
     <View style={homeStyles.todoItemWrapper}>
       <LinearGradient
         colors={colors.gradients.surface}
@@ -38,7 +45,7 @@ const TodoList = ({ item }: { item: Todo }) => {
         <TouchableOpacity
           style={homeStyles.checkbox}
           activeOpacity={0.7}
-          onPress={() => handleToggleTodo(item._id)}
+          onPress={() => !isEditing && handleToggleTodo(item._id)}
         >
           <LinearGradient
             colors={item.isCompleted ? colors.gradients.success : colors.gradients.muted}
@@ -53,37 +60,19 @@ const TodoList = ({ item }: { item: Todo }) => {
           </LinearGradient>
         </TouchableOpacity>
 
-        <View style={[
-
-        ]}>
-          <Text style={[
-            homeStyles.todoText,
-            item.isCompleted && {
-              textDecorationLine: 'line-through',
-              color: colors.textMuted,
-              opacity: 0.6,
-            }
-          ]}>{item.text}</Text>
-
-          <View style={homeStyles.todoActions}>
-            <TouchableOpacity onPress={() => { }} activeOpacity={0.8}>
-              <LinearGradient
-                colors={colors.gradients.warning}
-                style={homeStyles.actionButton}
-              >
-                <Ionicons name='pencil' size={14} color={"#fff"} />
-              </LinearGradient>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { }} activeOpacity={0.8}>
-              <LinearGradient
-                colors={colors.gradients.danger}
-                style={homeStyles.actionButton}
-              >
-                <Ionicons name='trash' size={14} color={"#fff"} />
-              </LinearGradient>
-            </TouchableOpacity>
-          </View>
-        </View>
+        {!isEditing ?
+            <TodoListItem
+              item={item}
+              setEditingTodoId={setEditingTodoId}
+              setEditingText={setEditingText}
+            /> : 
+            <EditTodo
+              editingTodoId={editingTodoId}
+              editingText={editingText}
+              setEditingTodoId={setEditingTodoId}
+              setEditingText={setEditingText}
+            />
+        }
       </LinearGradient>
     </View>
   )

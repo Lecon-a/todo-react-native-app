@@ -5,18 +5,19 @@ import { api } from "@/convex/_generated/api";
 import useTheme from '@/hooks/useTheme';
 import { useQuery } from "convex/react";
 import { LinearGradient } from 'expo-linear-gradient';
-import { FlatList, StatusBar, Text, View } from 'react-native';
+import { FlatList, StatusBar } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import TodoList from '@/components/TodoList';
 import { Doc } from '@/convex/_generated/dataModel';
 import EmptyState from '@/components/EmptyState';
 
+
 const Home = () => {
 
   type Todo = Doc<"todos">;
 
-  const { toggleDarkMode, colors } = useTheme();
+  const { colors } = useTheme();
   const homeStyles = createHomeStyles(colors);
   const todos = useQuery(api.todos.getTodos);
 
