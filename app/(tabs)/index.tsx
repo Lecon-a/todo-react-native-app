@@ -1,33 +1,22 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import useTheme from '@/hooks/useTheme'
+import useTheme, { ColorScheme } from '@/hooks/useTheme'
 import { api } from "@/convex/_generated/api";
 import { useMutation, useQuery } from "convex/react";
+import { createHomeStyles } from '@/assets/styles/homo.styles';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Home = () => {
 
-  const { toggleDarkMode } = useTheme();
+  const { toggleDarkMode, colors } = useTheme();
+  const homeStyles = createHomeStyles(colors)
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity style={styles.toggleButton} onPress={toggleDarkMode}>
+    <SafeAreaView style={homeStyles.container}>
+      <TouchableOpacity style={''} onPress={toggleDarkMode}>
         <Text>Toggle</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  }, 
-  toggleButton: {
-    marginTop: 20,
-    padding: 10,
-    backgroundColor: '#ddd',
-    borderRadius: 5,
-  }
-})
 
 export default Home
