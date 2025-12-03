@@ -1,0 +1,68 @@
+import { createHomeStyles } from '@/assets/styles/home.styles'
+import { api } from '@/convex/_generated/api'
+import useTheme from '@/hooks/useTheme'
+import { Ionicons } from '@expo/vector-icons'
+import { useMutation } from 'convex/react'
+import { LinearGradient } from 'expo-linear-gradient'
+import { useState } from 'react'
+import { Alert, TextInput, TouchableOpacity, View } from 'react-native'
+
+const TodoInput = () => {
+
+    // app theme
+    const { colors } = useTheme();
+    const homeStyles = createHomeStyles(colors);
+    // manage state
+    const [newTask, setNewTask] = useState("");
+    // endpoint
+    const addTodo = useMutation(api.todos.addTodo);
+
+    // handle todo
+    const handleAddTodo = async () => { 
+        // check if there is no new todo
+        if (!newTask.trim()) {
+            Alert.alert("Info", "Please kindly enter task")
+            return;
+        }
+        try {
+            await addTodo({ text: newTask.trim() });
+            setNewTask("");
+        } catch (error) {
+            console.log('====================================');
+            console.log("Error adding a todo: ", error);
+            console.log('====================================');
+            Alert.alert("Error", "Failed to add todo")
+        }
+    };
+
+    return (
+        <View style={homeStyles.inputSection}>
+            <View style={homeStyles.inputWrapper}>
+                <TextInput
+                    style={homeStyles.input}
+                    placeholder="What need to be done?"
+                    value={newTask}
+                    onChangeText={setNewTask}
+                    onSubmitEditing={handleAddTodo}
+                    // multiline
+                    placeholderTextColor={colors.textMuted}
+                />
+                <TouchableOpacity
+                    onPress={handleAddTodo}
+                    activeOpacity={0.8}
+                    disabled={!newTask.trim()}
+
+                >
+                    <LinearGradient
+                        colors={newTask.trim() ? colors.gradients.primary : colors.gradients.muted}
+                        style={[homeStyles.addButton, !newTask.trim() && homeStyles.addButtonDisabled]}
+                    >
+                        <Ionicons name='add' size={24} color={'#fff'}/>
+                    </LinearGradient>
+                </TouchableOpacity>
+            </View>
+        </View>
+    )
+}
+
+export default TodoInput

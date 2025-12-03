@@ -15,7 +15,7 @@ export interface ColorScheme {
     warning: string;
     danger: string;
     shadow: string;
-    gradient: {
+    gradients: {
         background: [string, string];
         surface: [string, string];
         primary: [string, string];
@@ -44,7 +44,7 @@ const lightColors: ColorScheme = {
     warning: '#f59e0b',
     danger: '#ef4444',
     shadow: '#000000',
-    gradient: {
+    gradients: {
         background: ['#f8fafc', '#e2e8f0'],
         surface: ['#ffffff', '#f8fafc'],
         primary: ['#3b82f6', '#1d4ed8'],
@@ -73,7 +73,7 @@ const darkColors: ColorScheme = {
     warning: '#fbbf24',
     danger: '#f87171',
     shadow: '#000000',
-    gradient: {
+    gradients: {
         background: ['#0f172a', '#1e293b'],
         surface: ['#1e293b', '#334155'],
         primary: ['#3b82f6', '#1d4ed8'],
