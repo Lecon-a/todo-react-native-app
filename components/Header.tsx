@@ -14,15 +14,15 @@ const Header = () => {
     const homeStyles = createHomeStyles(colors);
     // db
     const todos = useQuery(api.todos.getTodos);
-    const completedCount = todos ? todos?.filter(todo => todo.isCompleted).length : 0;
+    const completedCount = todos ? todos.filter(todo => todo.isCompleted).length : 0;
     let totalCount = todos ? todos.length : 0;
-    let percentageCompleted = totalCount > 0 ? (completedCount / totalCount) * 100 : 0
+    let percentageCompleted = totalCount > 0 ? (completedCount / totalCount) * 100 : 0;
 
     return (
         <View style={homeStyles.header}> 
             <View style={homeStyles.titleContainer}>
                 <LinearGradient
-                    colors={colors.gradient.primary}
+                    colors={colors.gradients.primary}
                     style={homeStyles.iconContainer}
                 >
                     <Ionicons name='flash-outline' size={28} color={'#fff'} />
@@ -36,17 +36,16 @@ const Header = () => {
 
             {/* progress bar */}
             {
-                totalCount > 0 && (
+                true && (
                     <View style={homeStyles.progressContainer}>
                         <View style={homeStyles.progressBarContainer}>
                             <View style={homeStyles.progressBar}>
                                 <LinearGradient
-                                    colors={colors.gradient.success}
-                                    style={[homeStyles.progressBar, {width: `${percentageCompleted}%`}]}
-                                >
-                                    <Text style={homeStyles.progressText}>{`${Math.round(percentageCompleted)}%`}</Text>
-                                </LinearGradient>
+                                    colors={colors.gradients.success}
+                                    style={[homeStyles.progressFill, {width: `${percentageCompleted}%`}]}
+                                />
                             </View>
+                            <Text style={homeStyles.progressText}>{`${Math.round(percentageCompleted)}%`}</Text>
                         </View>
                     </View>
                 )

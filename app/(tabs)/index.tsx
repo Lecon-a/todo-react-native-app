@@ -15,7 +15,7 @@ const Home = () => {
 
   return (
     <LinearGradient
-      colors={colors.gradient.background}
+      colors={colors.gradients.background}
       style={homeStyles.container}
     >
       <StatusBar barStyle={colors.statusBarStyle} />
