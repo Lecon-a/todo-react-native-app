@@ -6,6 +6,7 @@ import { createHomeStyles } from '@/assets/styles/homo.styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import Header from '@/components/Header';
+import TodoInput from '@/components/TodoInput';
 
 
 const Home = () => {
@@ -21,6 +22,7 @@ const Home = () => {
       <StatusBar barStyle={colors.statusBarStyle} />
       <SafeAreaView style={homeStyles.container}>
         <Header />
+        <TodoInput />
         <TouchableOpacity style={''} onPress={toggleDarkMode}>
           <Text>Toggle</Text>
         </TouchableOpacity>
